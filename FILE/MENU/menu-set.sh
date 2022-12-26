@@ -11,7 +11,7 @@ WH='\033[1;37m'
 ###########- END COLOR CODE -##########
 
 BURIQ () {
-    curl -sS https://raw.githubusercontent.com/DryanZ/permission/main/access > /root/tmp
+    curl -sS https://raw.githubusercontent.com/rasta-team/permission/main/access > /root/tmp
     data=( `cat /root/tmp | grep -E "^### " | awk '{print $2}'` )
     for user in "${data[@]}"
     do
@@ -29,7 +29,7 @@ BURIQ () {
 }
 
 MYIP=$(curl -sS ipv4.icanhazip.com)
-Name=$(curl -sS https://raw.githubusercontent.com/DryanZ/permission/main/access | grep $MYIP | awk '{print $2}')
+Name=$(curl -sS https://raw.githubusercontent.com/rasta-team/permission/main/access | grep $MYIP | awk '{print $2}')
 echo $Name > /usr/local/etc/.$Name.ini
 CekOne=$(cat /usr/local/etc/.$Name.ini)
 
@@ -46,7 +46,7 @@ fi
 
 PERMISSION () {
     MYIP=$(curl -sS ipv4.icanhazip.com)
-    IZIN=$(curl -sS https://raw.githubusercontent.com/DryanZ/permission/main/access | awk '{print $4}' | grep $MYIP)
+    IZIN=$(curl -sS https://raw.githubusercontent.com/rasta-team/permission/main/access | awk '{print $4}' | grep $MYIP)
     if [ "$MYIP" = "$IZIN" ]; then
     Bloman
     else
@@ -138,6 +138,30 @@ else
 restr="${red}OFFLINE${NC}"
 fi
 
+tcp="$(systemctl show --now openvpn-server@server-tcp-1194 --no-page)"
+status1=$(echo "${tcp}" | grep 'ActiveState=' | cut -f2 -d=)
+if [ "${status1}" = "active" ]; then
+ovpntcp="${WH}ONLINE${NC}"
+else
+ovpntcp="${red}OFFLINE${NC}"
+fi
+
+udp="$(systemctl show --now openvpn-server@server-udp-2200 --no-page)"
+status2=$(echo "${udp}" | grep 'ActiveState=' | cut -f2 -d=)
+if [ "${status2}" = "active" ]; then
+ovpnudp="${WH}ONLINE${NC}"
+else
+ovpnudp="${red}OFFLINE${NC}"
+fi
+
+ovhp="$(systemctl show ohp.service --no-page)"
+status3=$(echo "${ovhp}" | grep 'ActiveState=' | cut -f2 -d=)
+if [ "${status3}" = "active" ]; then
+ohp="${WH}ONLINE${NC}"
+else
+ohp="${red}OFFLINE${NC}"
+fi
+
 ningx=$(service nginx status | grep active | cut -d ' ' $stat)
 if [ "$ningx" = "active" ]; then
 resnx="${WH}ONLINE${NC}"
@@ -156,6 +180,9 @@ echo -e "$COLOR1 ${NC} ${COLBG1}               ${WH}• SERVER STATUS •       
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
 echo -e " $COLOR1┌───────────────────────────────────────────────┐${NC}"
 echo -e " $COLOR1 ${NC}  ${COLOR1}• ${WH}SSH & VPN                        ${COLOR1}• $ressh"
+echo -e " $COLOR1 ${NC}  ${COLOR1}• ${WH}OVPN TCP                         ${COLOR1}• $ovpntcp"
+echo -e " $COLOR1 ${NC}  ${COLOR1}• ${WH}OVPN UDP                         ${COLOR1}• $ovpnudp"
+echo -e " $COLOR1 ${NC}  ${COLOR1}• ${WH}OVPN OHP                         ${COLOR1}• $ohp"
 echo -e " $COLOR1 ${NC}  ${COLOR1}• ${WH}SQUID                            ${COLOR1}• $ressq"
 echo -e " $COLOR1 ${NC}  ${COLOR1}• ${WH}DROPBEAR                         ${COLOR1}• $resdb"
 echo -e " $COLOR1 ${NC}  ${COLOR1}• ${WH}NGINX                            ${COLOR1}• $resnx"
@@ -190,6 +217,10 @@ systemctl restart squid
 echo -e " $COLOR1 ${NC}  ${WH}[${COLOR1}INFO${WH}] ${COLOR1}• ${WH}Restarting Squid Services           $COLOR1 ${NC}"
 sleep 1
 systemctl restart openvpn
+systemctl restart --now openvpn-server@server-tcp-1194
+systemctl restart --now openvpn-server@server-udp-2200
+echo -e " $COLOR1 ${NC}  ${WH}[${COLOR1}INFO${WH}] ${COLOR1}• ${WH}Restarting OpenVPN Services         $COLOR1 ${NC}"
+sleep 1
 systemctl restart nginx
 echo -e " $COLOR1 ${NC}  ${WH}[${COLOR1}INFO${WH}] ${COLOR1}• ${WH}Restarting Nginx Services           $COLOR1 ${NC}"
 sleep 1

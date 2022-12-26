@@ -24,7 +24,7 @@ dircreate() {
 }
 
 BURIQ () {
-    curl -sS https://raw.githubusercontent.com/DryanZ/permission/main/access  > /root/tmp
+    curl -sS https://raw.githubusercontent.com/rasta-team/permission/main/access  > /root/tmp
     data=( `cat /root/tmp | grep -E "^### " | awk '{print $2}'` )
     for user in "${data[@]}"
     do
@@ -42,8 +42,8 @@ BURIQ () {
 }
 
 MYIP=$(curl -sS ipv4.icanhazip.com)
-Name=$(curl -sS https://raw.githubusercontent.com/DryanZ/permission/main/access  | grep $MYIP | awk '{print $2}')
-Isadmin=$(curl -sS https://raw.githubusercontent.com/DryanZ/permission/main/access  | grep $MYIP | awk '{print $5}')
+Name=$(curl -sS https://raw.githubusercontent.com/rasta-team/permission/main/access  | grep $MYIP | awk '{print $2}')
+Isadmin=$(curl -sS https://raw.githubusercontent.com/rasta-team/permission/main/access  | grep $MYIP | awk '{print $5}')
 echo $Name > /usr/local/etc/.$Name.ini
 CekOne=$(cat /usr/local/etc/.$Name.ini)
 
@@ -60,7 +60,7 @@ fi
 
 PERMISSION () {
     MYIP=$(curl -sS ipv4.icanhazip.com)
-    IZIN=$(curl -sS https://raw.githubusercontent.com/DryanZ/permission/main/access  | awk '{print $4}' | grep $MYIP)
+    IZIN=$(curl -sS https://raw.githubusercontent.com/rasta-team/permission/main/access  | awk '{print $4}' | grep $MYIP)
     if [ "$MYIP" = "$IZIN" ]; then
     Bloman
     else
@@ -78,7 +78,7 @@ if [ "$res" = "Expired" ]; then
 Exp="\e[36mExpired\033[0m"
 rm -f /home/needupdate > /dev/null 2>&1
 else
-Exp=$(curl -sS https://raw.githubusercontent.com/DryanZ/permission/main/access  | grep $MYIP | awk '{print $3}')
+Exp=$(curl -sS https://raw.githubusercontent.com/rasta-team/permission/main/access  | grep $MYIP | awk '{print $3}')
 fi
 
 function botonoff(){
@@ -115,7 +115,7 @@ EOF
 fun_bot1() {
 clear
 [[ ! -e "/etc/.maAsiss/.Shellbtsss" ]] && {
-wget -qO- https://raw.githubusercontent.com/DryanZ/bot_panel/aio/BotAPI.sh >/etc/.maAsiss/.Shellbtsss
+wget -qO- https://raw.githubusercontent.com/rasta-team/bot_panel/aio/BotAPI.sh >/etc/.maAsiss/.Shellbtsss
 }
 [[ "$(grep -wc "sam_bot" "/etc/rc.local")" = '0' ]] && {
 sed -i '$ i\screen -dmS sam_bot bbt' /etc/rc.local >/dev/null 2>&1
