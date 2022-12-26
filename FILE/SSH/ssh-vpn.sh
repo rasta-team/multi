@@ -83,8 +83,8 @@ apt-get install figlet -y
 apt-get install ruby -y
 gem install lolcat
 
-# set time GMT +7
-ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
+# set time GMT +8
+ln -fs /usr/share/zoneinfo/Asia/Kuala_Lumpur /etc/localtime
 
 # set locale
 sed -i 's/AcceptEnv/#AcceptEnv/g' /etc/ssh/sshd_config
@@ -186,6 +186,12 @@ echo "/usr/sbin/nologin" >> /etc/shells
 /etc/init.d/ssh restart
 /etc/init.d/dropbear restart
 
+# install squid
+cd
+apt -y install squid3
+wget -O /etc/squid/squid.conf "https://raw.githubusercontent.com/DryanZ/multi/main/FILE/OPENVPN/squid3.conf"
+sed -i $MYIP2 /etc/squid/squid.conf
+
 cd
 # install stunnel
 #apt install stunnel4 -y
@@ -224,6 +230,8 @@ cat key.pem cert.pem >> /etc/stunnel/stunnel.pem
 sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
 /etc/init.d/stunnel4 restart
 
+#OpenVPN
+wget https://raw.githubusercontent.com/DryanZ/multi/main/FILE/OPENVPN/vpn.sh &&  chmod +x vpn.sh && ./vpn.sh
 
 # install fail2ban
 apt -y install fail2ban
