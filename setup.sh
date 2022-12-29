@@ -154,7 +154,7 @@ clear
 
 yellow "Add Domain for vmess/vless/trojan dll"
 echo " "
-read -rp "Input ur domain : " -e pp
+read -rp "Input your domain : " -e pp
 echo "$pp" > /root/domain
 echo "$pp" > /root/scdomain
 echo "$pp" > /etc/xray/domain
