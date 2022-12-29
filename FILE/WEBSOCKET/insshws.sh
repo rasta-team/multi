@@ -2,17 +2,17 @@
 
 cd
 
-wget -O /usr/local/bin/ws-dropbear https://raw.githubusercontent.com/DryanZ/multi/main/FILE/WEBSOCKET/dropbear-ws.py
-wget -O /usr/local/bin/ws-stunnel https://raw.githubusercontent.com/DryanZ/multi/main/FILE/WEBSOCKET/ws-stunnel
-wget -O /usr/local/bin/ws-ovpn https://raw.githubusercontent.com/DryanZ/multi/main/FILE/OPENVPN/ws-ovpn.py
+wget -O /usr/local/bin/ws-dropbear https://raw.githubusercontent.com/rasta-team/multi/main/FILE/WEBSOCKET/dropbear-ws.py
+wget -O /usr/local/bin/ws-stunnel https://raw.githubusercontent.com/rasta-team/multi/main/FILE/WEBSOCKET/ws-stunnel
+wget -O /usr/local/bin/ws-ovpn https://raw.githubusercontent.com/rasta-team/multi/main/FILE/OPENVPN/ws-ovpn.py
 
 chmod +x /usr/local/bin/ws-dropbear
 chmod +x /usr/local/bin/ws-stunnel
 chmod +x /usr/local/bin/ws-ovpn
 
-wget -O /etc/systemd/system/ws-dropbear.service https://raw.githubusercontent.com/DryanZ/multi/main/FILE/WEBSOCKET/service-wsdropbear && chmod +x /etc/systemd/system/ws-dropbear.service
-wget -O /etc/systemd/system/ws-stunnel.service https://raw.githubusercontent.com/DryanZ/multi/main/FILE/WEBSOCKET/ws-stunnel.service && chmod +x /etc/systemd/system/ws-stunnel.service
-wget -O /etc/systemd/system/ws-ovpn.service https://raw.githubusercontent.com/DryanZ/multi/main/FILE/OPENVPN/ws-ovpn.service && chmod +x /etc/systemd/system/ws-ovpn.service
+wget -O /etc/systemd/system/ws-dropbear.service https://raw.githubusercontent.com/rasta-team/multi/main/FILE/WEBSOCKET/service-wsdropbear && chmod +x /etc/systemd/system/ws-dropbear.service
+wget -O /etc/systemd/system/ws-stunnel.service https://raw.githubusercontent.com/rasta-team/multi/main/FILE/WEBSOCKET/ws-stunnel.service && chmod +x /etc/systemd/system/ws-stunnel.service
+wget -O /etc/systemd/system/ws-ovpn.service https://raw.githubusercontent.com/rasta-team/multi/main/FILE/OPENVPN/ws-ovpn.service && chmod +x /etc/systemd/system/ws-ovpn.service
 
 systemctl daemon-reload
 systemctl enable ws-dropbear.service
